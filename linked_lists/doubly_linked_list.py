@@ -1,11 +1,4 @@
-class Node:
-    def __init__(self, data) -> None:
-        self.data = data
-        self.prev: Node = None
-        self.next: Node = None
-
-    def __str__(self) -> str:
-        return str(self.data)
+from utils import Node
 
 
 class DoublyLinkedList:

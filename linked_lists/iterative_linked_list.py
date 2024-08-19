@@ -1,37 +1,14 @@
-# Create own exceptions class for empty linked list
-from operator import index, le
-import re
-
-
-class EmptyLinkedListException(Exception):
-    def __init__(self, message="Linked list is empty") -> None:
-        self.message = message
-        super().__init__(self.message)
-
-
-class NodeNotFoundException(Exception):
-    def __init__(self, data="") -> None:
-        self.message = 'Node with data %s not found' % data
-        super().__init__(self.message)
-
-
-class Node:
-    def __init__(self, data) -> None:
-        self.data = data
-        self.next = None
-
-    def __repr__(self):
-        return str(self.data)
+from utils import EmptyLinkedListException, NodeNotFoundException, Node
 
 
 class LinkedList:
     """Iterative implementation of a singly linked list."""
 
     def __init__(self, nodes=None) -> None:
-        self.head = None
+        self.head: Node | None = None
         if nodes is not None:
             node = Node(nodes.pop(0))
-            self.head = node
+            self.head: Node | None = node
             for elem in nodes:
                 node.next = Node(data=elem)
                 node = node.next
@@ -248,6 +225,27 @@ class LinkedList:
             prev = curr
             curr = curr.next
 
+    def pairwise_swap(self) -> None:
+        temp = self.head
+
+        # There are no nodes in linked list
+        if temp is None:
+            return
+
+        # Traverse furthethr only if there are at least two
+        # left
+        while (temp and temp.next):
+
+            # If both nodes are same,
+            # no need to swap data
+            if (temp.data != temp.next.data):
+
+                # Swap data of node with its next node's data
+                temp.data, temp.next.data = temp.next.data, temp.data
+
+            # Move temp by 2 to the next pair
+            temp = temp.next.next
+
 
 def reverse_linked_lists(ll1: LinkedList, ll2: LinkedList) -> LinkedList:
     if not ll1 and not ll2:
@@ -286,10 +284,10 @@ def reverse_linked_lists(ll1: LinkedList, ll2: LinkedList) -> LinkedList:
 
 
 def main() -> None:
-    ll = LinkedList([1, 1, 2, 3, 3, 4, 4])
+    ll = LinkedList([1, 2, 3, 4, 5, 6])
 
     print(ll)
-    ll.remove_duplicates()
+    ll.pairwise_swap()
     print(ll)
 
 

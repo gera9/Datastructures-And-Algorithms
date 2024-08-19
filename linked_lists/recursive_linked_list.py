@@ -1,25 +1,25 @@
-from iterative_linked_list import (
+from utils import (
     Node,
-    LinkedList,
     EmptyLinkedListException,
     NodeNotFoundException
 )
+from iterative_linked_list import LinkedList
 
 
 class RecursiveLinkedList(LinkedList):
     """Recursive implementation of a singly linked list."""
 
     def __init__(self, nodes=None) -> None:
-        self.head = None
+        self.head: Node | None = None
         if nodes is not None:
             node = Node(nodes.pop(0))
-            self.head = node
+            self.head: Node | None = node
             for elem in nodes:
                 node.next = Node(data=elem)
                 node = node.next
 
     def __repr__(self) -> str:
-        def helper(node: Node) -> str:
+        def helper(node:  Node | None) -> str:
             if node.next is None:
                 return node.__repr__()
 
@@ -28,7 +28,7 @@ class RecursiveLinkedList(LinkedList):
         return helper(self.head) + ' -> None'
 
     def travserse(self) -> None:
-        def helper(node: Node) -> None:
+        def helper(node: Node | None) -> None:
             if node is None:
                 return
             print(node, end=' -> ')
