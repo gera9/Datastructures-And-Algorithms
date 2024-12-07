@@ -121,6 +121,11 @@ def print_leaves(root: Node | None) -> None:
     print_leaves(root.right)
 
 
+def insertion_in_level_order(root: Node | None, new_node: Node | None) -> None:
+    if not new_node:
+        return
+
+
 def main() -> None:
     # Tree Structure
     #      1
